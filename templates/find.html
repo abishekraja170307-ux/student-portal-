@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Find Person</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/logout"><button style="float:right">Switch User</button></a>
+
+    <h1>Available Users</h1>
+
+    {% if message %}
+
+        <h2 style="color: cyan;">
+            {{ message }}
+        </h2>
+
+    {% endif %}
+
+    {% for user in users %}
+
+    <div class="user-card">
+
+        <h2>{{ user[1] }}</h2>
+
+        <p>Age: {{ user[2] }}</p>
+
+        <p>Skill: {{ user[3] }}</p>
+
+        <a href="/send_request/{{ user[1] }}">
+            <button>Send Request</button>
+        </a>
+
+        <a href="/chat/{{ user[1] }}">
+            <button>Open Chat</button>
+        </a>
+
+        <a href="/code/{{ user[1] }}">
+            <button>Share C Code</button>
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

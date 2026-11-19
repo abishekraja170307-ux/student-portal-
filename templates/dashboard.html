@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Adding a modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="page-transition-wrapper">
+    <div class="dashboard-wrapper">
+        <!-- Sidebar / Topbar equivalent -->
+        <header class="dashboard-header">
+            <h1>SkillSwap Workspace</h1>
+            <a href="/logout"><button class="btn-logout">Switch User</button></a>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- User Profile Card -->
+            <section class="profile-section">
+                <div class="glass-card profile-card">
+                    <h2>Welcome, <span class="highlight">{{ name }}</span></h2>
+                    <p>Age: <strong>{{ age | default('N/A') }}</strong></p>
+                    <p>Your Primary Skill: <strong>{{ skill }}</strong></p>
+                    
+                    <a href="/find" class="btn-primary" style="display:inline-block; margin-top:20px; text-decoration:none;">
+                        Find Study Partners
+                    </a>
+                </div>
+            </section>
+
+            <!-- Modules Section -->
+            <section class="modules-section">
+                <div class="section-header">
+                    <h2>Your Study Modules</h2>
+                </div>
+                
+                <div class="modules-grid">
+                    {% if modules %}
+                        {% for module in modules %}
+                            <div class="glass-card module-card">
+                                <h3>{{ module[2] }}</h3>
+                                <p>{{ module[3] }}</p>
+                                <form action="/update_module/{{ module[0] }}" method="POST" style="margin-top: 12px;">
+                                    <input type="text" name="title" value="{{ module[2] }}" required>
+                                    <textarea name="description" required rows="3">{{ module[3] }}</textarea>
+                                    <button type="submit" class="btn-secondary">Update</button>
+                                </form>
+                                <form action="/delete_module/{{ module[0] }}" method="POST" style="margin-top: 8px;">
+                                    <button type="submit" class="btn-logout">Delete</button>
+                                </form>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="glass-card module-card empty">
+                            <p>No modules yet. Start adding your study topics!</p>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Add Module Form -->
+                    <div class="glass-card module-card add-module-form">
+                        <h3>Add New Module</h3>
+                        <form action="/add_module" method="POST">
+                            <input type="text" name="title" placeholder="Module Title" required>
+                            <textarea name="description" placeholder="Short Description..." required rows="3" style="width: 90%; padding: 12px; margin: 10px; border: none; border-radius: 8px; font-family:inherit;"></textarea>
+                            <button type="submit" class="btn-secondary">Add Module</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SkillSwap Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<div id="page-wrapper" class="page-transition-wrapper">
+    <div class="login-hero">
+        <h1 class="hero-title animate-zoom delay-1">SkillSwap</h1>
+        <p class="hero-subtitle animate-zoom delay-2">Connect, Learn, and Share Skills</p>
+
+        <div class="glass-card container animate-zoom delay-3" style="margin: 0; max-width: 400px; width: 100%;">
+            <form id="login-form" action="/dashboard" method="POST" style="display: flex; flex-direction: column; align-items: center;">
+                <input type="text"
+                name="name"
+                placeholder="Enter Name"
+                class="animate-zoom delay-4"
+                required>
+
+                <input type="number"
+                name="age"
+                placeholder="Enter Age"
+                class="animate-zoom delay-5"
+                required>
+
+                <input type="text"
+                name="skill"
+                placeholder="Enter Skill"
+                class="animate-zoom delay-5" 
+                style="animation-delay: 1.2s;"
+                required>
+
+                <button type="submit" class="btn-primary animate-zoom" style="animation-delay: 1.4s; margin-top: 15px;">
+                    Enter Workspace
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent instant navigation
+        const form = this;
+        
+        // Add exit animation to the wrapper
+        document.getElementById('page-wrapper').classList.add('page-exit');
+        
+        // Wait for the animation to finish (500ms) before submitting
+        setTimeout(() => {
+            form.submit();
+        }, 450); 
+    });
+</script>
+
+</body>
+</html>

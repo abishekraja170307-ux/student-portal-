@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>C Code Sharing</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Send C Code to {{ receiver }}</h1>
+
+    {% for item in codes %}
+
+    <div class="user-card">
+
+        <h3>{{ item[1] }}</h3>
+
+        <pre>{{ item[3] }}</pre>
+
+        <h3 style="color: cyan;">
+            {{ item[4] }}
+        </h3>
+
+        <h3 style="color: lightgreen;">
+            Output: {{ item[5] }}
+        </h3>
+
+    </div>
+
+    {% endfor %}
+
+    <form action="/send_code/{{ receiver }}" method="POST">
+
+        <textarea
+        name="code"
+        rows="10"
+        cols="40"
+        placeholder="Enter C Code"
+        required></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Send Code
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
